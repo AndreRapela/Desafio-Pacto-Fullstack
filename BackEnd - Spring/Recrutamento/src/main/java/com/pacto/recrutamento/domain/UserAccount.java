@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_user")
-public class User {
+public class UserAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

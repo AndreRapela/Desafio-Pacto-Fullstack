@@ -37,7 +37,7 @@ public class Job {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
+    private UserAccount createdBy;
 
     @LastModifiedDate
     @Column(name =  "updated_at", nullable = false)
