@@ -17,7 +17,7 @@ public class JwtService {
     private final long expirationTime;
 
     public JwtService(@Value("${app.jwt.secret}") String secret,
-                      @Value("${app.jwt.expiration}") long expirationTime) {
+                      @Value("${app.jwt.expiration-time}") long expirationTime) {
         this.algoritmh = Algorithm.HMAC256(secret);
         this.expirationTime = expirationTime;
     }

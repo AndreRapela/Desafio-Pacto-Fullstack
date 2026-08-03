@@ -2,9 +2,11 @@ package com.pacto.recrutamento.config;
 
 import com.pacto.recrutamento.repository.UserAccountRepository;
 import com.pacto.recrutamento.security.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -25,11 +27,12 @@ import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
+@EnableJpaAuditing
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain (HttpSecurity http, JwtAuthenticationFilter filter,
-                                             AuthenticationProvider provider, CorsConfigurationSource cors){
+    SecurityFilterChain securityFilterChain (HttpSecurity http, JwtAuthenticationFilter filter,AuthenticationProvider provider,
+                                             @Qualifier("corsConfigurationSource") CorsConfigurationSource cors){
         return http
                 .csrf(csrf -> csrf.disable())
                 .cors(corsConfigurer -> corsConfigurer.configurationSource(cors))

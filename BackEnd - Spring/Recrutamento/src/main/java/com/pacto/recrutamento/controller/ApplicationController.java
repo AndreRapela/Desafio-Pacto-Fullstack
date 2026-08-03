@@ -2,6 +2,7 @@ package com.pacto.recrutamento.controller;
 
 import com.pacto.recrutamento.dto.application.ApplicationResponse;
 import com.pacto.recrutamento.dto.application.UpdateApplicationStatusRequest;
+import com.pacto.recrutamento.service.ApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ApplicationController {
 
     @Autowired
-    private ApplicationController service;
+    private ApplicationService service;
 
     @PostMapping("/jobs/{jobId}")
     @PreAuthorize("hasRole('CANDIDATE')")
