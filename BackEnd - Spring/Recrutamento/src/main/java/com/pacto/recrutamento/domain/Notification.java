@@ -32,9 +32,6 @@ public class Notification {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public void MarkAsRead() {
-        if (readAt == null) {
-            readAt = LocalDateTime.now();
-        }
-    }
+    public void markAsRead() { if (readAt == null) { readAt = LocalDateTime.now(); }}
+
 }
