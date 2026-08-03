@@ -1,7 +1,7 @@
 package com.pacto.recrutamento.repository.spec;
 
 import com.pacto.recrutamento.domain.Job;
-import com.pacto.recrutamento.domain.enuns.JobStatus;
+import com.pacto.recrutamento.domain.enums.JobStatus;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;

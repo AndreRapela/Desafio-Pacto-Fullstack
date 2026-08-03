@@ -1,6 +1,6 @@
 package com.pacto.recrutamento.dto.auth;
 
-import com.pacto.recrutamento.domain.enuns.Role;
+import com.pacto.recrutamento.domain.enums.Role;
 
 public record AuthResponse(
         String token,

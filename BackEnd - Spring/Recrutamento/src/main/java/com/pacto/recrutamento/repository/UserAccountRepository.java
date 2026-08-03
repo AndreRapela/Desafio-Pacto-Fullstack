@@ -1,7 +1,7 @@
 package com.pacto.recrutamento.repository;
 
 import com.pacto.recrutamento.domain.UserAccount;
-import com.pacto.recrutamento.domain.enuns.Role;
+import com.pacto.recrutamento.domain.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

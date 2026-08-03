@@ -1,6 +1,6 @@
 package com.pacto.recrutamento.dto.job;
 
-import com.pacto.recrutamento.domain.enuns.JobStatus;
+import com.pacto.recrutamento.domain.enums.JobStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

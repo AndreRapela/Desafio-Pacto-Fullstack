@@ -2,7 +2,7 @@ package com.pacto.recrutamento.service;
 
 import com.pacto.recrutamento.domain.Job;
 import com.pacto.recrutamento.domain.UserAccount;
-import com.pacto.recrutamento.domain.enuns.JobStatus;
+import com.pacto.recrutamento.domain.enums.JobStatus;
 import com.pacto.recrutamento.dto.job.JobRequest;
 import com.pacto.recrutamento.dto.job.JobResponse;
 import com.pacto.recrutamento.exception.NotFoundException;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 
 @Service

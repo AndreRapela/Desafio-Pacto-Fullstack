@@ -2,7 +2,7 @@ package com.pacto.recrutamento.dto.job;
 
 import com.pacto.recrutamento.domain.Job;
 import com.pacto.recrutamento.domain.UserAccount;
-import com.pacto.recrutamento.domain.enuns.JobStatus;
+import com.pacto.recrutamento.domain.enums.JobStatus;
 
 import java.time.LocalDateTime;
 

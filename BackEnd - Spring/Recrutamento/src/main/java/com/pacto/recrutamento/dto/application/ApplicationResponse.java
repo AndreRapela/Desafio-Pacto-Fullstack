@@ -1,9 +1,9 @@
 package com.pacto.recrutamento.dto.application;
 
 import com.pacto.recrutamento.domain.Application;
-import com.pacto.recrutamento.domain.enuns.ApplicationStatus;
+import com.pacto.recrutamento.domain.enums.ApplicationStatus;
 
-import java.time.Instant;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

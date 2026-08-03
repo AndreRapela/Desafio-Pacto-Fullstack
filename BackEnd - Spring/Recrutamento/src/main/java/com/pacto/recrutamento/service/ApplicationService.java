@@ -3,21 +3,19 @@ package com.pacto.recrutamento.service;
 import com.pacto.recrutamento.domain.Application;
 import com.pacto.recrutamento.domain.Job;
 import com.pacto.recrutamento.domain.UserAccount;
-import com.pacto.recrutamento.domain.enuns.ApplicationStatus;
-import com.pacto.recrutamento.domain.enuns.JobStatus;
+import com.pacto.recrutamento.domain.enums.ApplicationStatus;
+import com.pacto.recrutamento.domain.enums.JobStatus;
 import com.pacto.recrutamento.dto.application.ApplicationResponse;
 import com.pacto.recrutamento.dto.application.UpdateApplicationStatusRequest;
 import com.pacto.recrutamento.exception.BusinessException;
 import com.pacto.recrutamento.exception.NotFoundException;
 import com.pacto.recrutamento.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

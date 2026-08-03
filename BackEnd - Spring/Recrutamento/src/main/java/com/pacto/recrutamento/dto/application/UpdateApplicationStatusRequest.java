@@ -1,6 +1,6 @@
 package com.pacto.recrutamento.dto.application;
 
-import com.pacto.recrutamento.domain.enuns.ApplicationStatus;
+import com.pacto.recrutamento.domain.enums.ApplicationStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 

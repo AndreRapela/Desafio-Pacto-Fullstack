@@ -1,7 +1,7 @@
 package com.pacto.recrutamento.domain;
 
 
-import com.pacto.recrutamento.domain.enuns.ApplicationStatus;
+import com.pacto.recrutamento.domain.enums.ApplicationStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
