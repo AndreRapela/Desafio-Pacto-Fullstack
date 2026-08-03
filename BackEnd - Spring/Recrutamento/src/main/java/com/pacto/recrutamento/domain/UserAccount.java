@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Data
@@ -41,6 +42,11 @@ public class UserAccount {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt;
 
+    public int monthsAtCompany() {
+        LocalDate start = hireDate == null ? LocalDate.now() : hireDate;
+        Period period = Period.between(start, LocalDate.now());
+        return Math.max(0, period.getYears() * 12 + period.getMonths());
+    }
 
 }
 

@@ -1,6 +1,6 @@
 package com.pacto.recrutamento.config;
 
-import com.pacto.recrutamento.repository.UserRepository;
+import com.pacto.recrutamento.repository.UserAccountRepository;
 import com.pacto.recrutamento.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +42,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    UserDetailsService userDetailsService (UserRepository repository){
+    UserDetailsService userDetailsService (UserAccountRepository repository){
         return username -> repository.findByEmailIgnoreCase(username)
                 .map(user -> User
                 .withUsername(user.getEmail())
