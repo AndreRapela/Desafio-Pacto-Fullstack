@@ -46,7 +46,7 @@ export class JobFormComponent implements OnInit {
             title: job.title,
             description: job.description,
             requirements: job.requirements,
-            minMonthsAtCompany: job.minMonthsAtCompany,
+            minMonthsAtCompany: job.minCompanyTime,
             status: job.status,
           }),
         error: (error) => this.error.set(errorMessage(error)),
