@@ -1,0 +1,69 @@
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px auto;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+.space {
+  margin: 14px 0;
+}
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.job-card {
+  display: flex;
+  flex-direction: column;
+}
+.job-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+.tenure {
+  color: #68758d;
+  font-size: 0.82rem;
+}
+h2 {
+  margin: 16px 0 8px;
+  font-size: 1.28rem;
+}
+p {
+  color: #59667e;
+  line-height: 1.55;
+}
+.requirements {
+  background: #f5f7fb;
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  gap: 5px;
+  margin: 5px 0 14px;
+}
+.requirements strong {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: #657089;
+}
+.eligibility {
+  color: #8c5a00;
+  background: #fff2ce;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  margin-bottom: 12px;
+}
+.actions {
+  margin-top: auto;
+}
+@media (max-width: 760px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}

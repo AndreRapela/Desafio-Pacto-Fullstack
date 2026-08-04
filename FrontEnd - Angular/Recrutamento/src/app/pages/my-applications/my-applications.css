@@ -1,0 +1,18 @@
+.application {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+h2 {
+  margin: 0 0 5px;
+}
+.feedback {
+  grid-column: 1 / -1;
+  background: #f5f7fb;
+  border-radius: 10px;
+  padding: 13px;
+}
+.feedback p {
+  margin: 5px 0 0;
+}

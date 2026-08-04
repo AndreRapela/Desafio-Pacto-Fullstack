@@ -1,1 +1,49 @@
-<p>login works!</p>
+<main class="auth-page">
+  <section class="auth-card">
+    <div class="logo">P</div>
+    <h1>Acesse o portal interno</h1>
+    <p>Consulte e acompanhe oportunidades internas da Pacto.</p>
+
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="email">E-mail corporativo</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="field">
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button class="btn btn-primary" [disabled]="form.invalid || loading()">
+        {{ loading() ? "Entrando..." : "Entrar" }}
+      </button>
+    </form>
+
+    <a routerLink="/cadastro">Primeiro acesso? Crie sua conta</a>
+
+    <div class="demo">
+      <strong>Acesso de demonstração</strong>
+      <button type="button" (click)="fill('aluno1@pacto.com.br', 'Aluno1@123')">
+        Aluno 1 — administrador
+      </button>
+      <button type="button" (click)="fill('aluno2@pacto.com.br', 'Aluno2@123')">
+        Aluno 2 — candidato
+      </button>
+    </div>
+  </section>
+</main>

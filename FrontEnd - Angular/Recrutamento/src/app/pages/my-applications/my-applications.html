@@ -1,1 +1,42 @@
-<p>my-applications works!</p>
+<main class="page">
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Minhas candidaturas</h1>
+        <p>Acompanhe cada etapa e os feedbacks recebidos.</p>
+      </div>
+    </div>
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+    @if (!items().length) {
+      <div class="card empty">Você ainda não possui candidaturas.</div>
+    }
+    <div class="grid">
+      @for (item of items(); track item.id) {
+        <article class="card application">
+          <div>
+            <h2>{{ item.jobTitle }}</h2>
+            <span class="muted"
+              >Enviada em {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}</span
+            >
+          </div>
+          <span
+            class="badge"
+            [class.badge-submitted]="item.status === 'SUBMITTED'"
+            [class.badge-review]="item.status === 'UNDER_REVIEW'"
+            [class.badge-approved]="item.status === 'APPROVED'"
+            [class.badge-rejected]="item.status === 'REJECTED'"
+            >{{ label(item.status) }}</span
+          >
+          @if (item.feedback) {
+            <div class="feedback">
+              <strong>Feedback</strong>
+              <p>{{ item.feedback }}</p>
+            </div>
+          }
+        </article>
+      }
+    </div>
+  </div>
+</main>

@@ -1,1 +1,38 @@
-<p>notifications works!</p>
+<main class="page">
+  <div class="container narrow">
+    <div class="page-header">
+      <div>
+        <h1>Notificações</h1>
+        <p>Atualizações sobre vagas e candidaturas.</p>
+      </div>
+    </div>
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+    @if (!items().length) {
+      <div class="card empty">Nenhuma notificação por enquanto.</div>
+    }
+    <div class="grid">
+      @for (item of items(); track item.id) {
+        <article class="card notification" [class.unread]="!item.read">
+          <div>
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.message }}</p>
+            <span class="muted">{{
+              item.createdAt | date: "dd/MM/yyyy HH:mm"
+            }}</span>
+          </div>
+          @if (!item.read) {
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="markRead(item)"
+            >
+              Marcar como lida
+            </button>
+          }
+        </article>
+      }
+    </div>
+  </div>
+</main>

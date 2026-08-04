@@ -1,1 +1,80 @@
-<p>admin-applications works!</p>
+<main class="page">
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Avaliação de candidatos</h1>
+        <p>
+          Filtre por vaga e tempo de empresa, atualize o status e envie
+          feedback.
+        </p>
+      </div>
+    </div>
+    <section class="card filters">
+      <div class="field">
+        <label for="job">Vaga</label
+        ><select id="job" [(ngModel)]="selectedJob">
+          <option value="">Selecione</option>
+          @for (job of jobs(); track job.id) {
+            <option [value]="job.id">{{ job.title }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label for="months">Tempo mínimo (meses)</label
+        ><input id="months" type="number" min="0" [(ngModel)]="minMonths" />
+      </div>
+      <button
+        class="btn btn-secondary"
+        type="button"
+        [disabled]="!selectedJob"
+        (click)="loadApplications()"
+      >
+        Buscar
+      </button>
+    </section>
+    @if (error()) {
+      <div class="alert alert-error space">{{ error() }}</div>
+    }
+    @if (selectedJob && !items().length) {
+      <div class="card empty">Nenhum candidato encontrado.</div>
+    }
+    <div class="grid">
+      @for (item of items(); track item.id) {
+        <article class="card candidate">
+          <div class="candidate-head">
+            <div>
+              <h2>{{ item.candidateName }}</h2>
+              <span class="muted">{{ item.candidateEmail }}</span>
+            </div>
+            <span class="badge">{{ item.monthsAtCompany }} meses</span>
+          </div>
+          <p class="muted">
+            Candidatura enviada em
+            {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          </p>
+          <div class="grid grid-2">
+            <div class="field">
+              <label>Status</label
+              ><select [(ngModel)]="item.status">
+                <option value="SUBMITTED">Enviada</option>
+                <option value="UNDER_REVIEW">Em análise</option>
+                <option value="APPROVED">Aprovada</option>
+                <option value="REJECTED">Reprovada</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Feedback</label
+              ><textarea
+                [(ngModel)]="item.feedback"
+                placeholder="Comentário para o candidato"
+              ></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="button" (click)="save(item)">
+            Salvar avaliação
+          </button>
+        </article>
+      }
+    </div>
+  </div>
+</main>

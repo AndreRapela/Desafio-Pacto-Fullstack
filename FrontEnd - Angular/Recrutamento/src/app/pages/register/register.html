@@ -1,1 +1,31 @@
-<p>register works!</p>
+<main class="auth-page">
+  <section class="auth-card">
+    <h1>Criar conta</h1>
+    <p>Cadastre-se com seus dados corporativos.</p>
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="name">Nome completo</label
+        ><input id="name" formControlName="name" />
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label
+        ><input id="email" type="email" formControlName="email" />
+      </div>
+      <div class="field">
+        <label for="date">Data de entrada na empresa</label
+        ><input id="date" type="date" formControlName="companyStartDate" />
+      </div>
+      <div class="field">
+        <label for="password">Senha (mínimo 8 caracteres)</label
+        ><input id="password" type="password" formControlName="password" />
+      </div>
+      <button class="btn btn-primary" [disabled]="form.invalid || loading()">
+        {{ loading() ? "Criando..." : "Criar conta" }}
+      </button>
+    </form>
+    <a routerLink="/login">Voltar para o login</a>
+  </section>
+</main>

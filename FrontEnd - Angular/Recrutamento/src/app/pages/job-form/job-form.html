@@ -1,1 +1,59 @@
-<p>job-form works!</p>
+<main class="page">
+  <div class="container narrow">
+    <div class="page-header">
+      <div>
+        <h1>{{ jobId ? "Editar vaga" : "Nova vaga" }}</h1>
+        <p>Defina informações claras para facilitar a candidatura.</p>
+      </div>
+      <a class="btn btn-ghost" routerLink="/vagas">Voltar</a>
+    </div>
+    <section class="card">
+      @if (error()) {
+        <div class="alert alert-error">{{ error() }}</div>
+      }
+      <form class="form" [formGroup]="form" (ngSubmit)="save()">
+        <div class="field">
+          <label for="title">Título</label
+          ><input id="title" formControlName="title" />
+        </div>
+        <div class="field">
+          <label for="description">Descrição</label
+          ><textarea id="description" formControlName="description"></textarea>
+        </div>
+        <div class="field">
+          <label for="requirements">Requisitos</label
+          ><textarea
+            id="requirements"
+            formControlName="requirements"
+          ></textarea>
+        </div>
+        <div class="grid grid-2">
+          <div class="field">
+            <label for="months">Tempo mínimo na empresa (meses)</label
+            ><input
+              id="months"
+              type="number"
+              min="0"
+              formControlName="minMonthsAtCompany"
+            />
+          </div>
+          <div class="field">
+            <label for="status">Status</label
+            ><select id="status" formControlName="status">
+              <option value="OPEN">Aberta</option>
+              <option value="CLOSED">Encerrada</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button
+            class="btn btn-primary"
+            [disabled]="form.invalid || loading()"
+          >
+            {{ loading() ? "Salvando..." : "Salvar vaga" }}</button
+          ><a class="btn btn-ghost" routerLink="/vagas">Cancelar</a>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
