@@ -49,5 +49,15 @@ public class NotificationService {
         return new NotificationResponse(notification);
     }
 
+    @Transactional(readOnly = true)
+    public NotificationResponse find(Long id, Authentication authentication) {
+        UserAccount user = currentUserService.require(authentication);
+
+        Notification notification = repository.findById(id)
+                .filter(item -> Objects.equals(item.getRecipient().getId(),user.getId()))
+                .orElseThrow(() -> new NotFoundException("Notificação não encontrada."));
+        return new NotificationResponse(notification);
+    }
+
 
 }

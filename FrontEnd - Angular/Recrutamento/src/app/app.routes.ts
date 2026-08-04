@@ -37,6 +37,14 @@ export const routes: Routes = [
       ),
   },
   {
+  path: "notificacoes/:id",
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import(
+      "./pages/notification-detail/notification-detail"
+    ).then((m) => m.NotificationDetailComponent),
+},
+  {
     path: "admin/vagas/nova",
     canActivate: [adminGuard],
     loadComponent: () =>
@@ -60,6 +68,7 @@ export const routes: Routes = [
         (m) => m.AdminApplicationsComponent,
       ),
   },
+  
   { path: "", pathMatch: "full", redirectTo: "vagas" },
   { path: "**", redirectTo: "vagas" },
 ];

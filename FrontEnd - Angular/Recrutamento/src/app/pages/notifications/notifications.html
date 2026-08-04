@@ -6,33 +6,43 @@
         <p>Atualizações sobre vagas e candidaturas.</p>
       </div>
     </div>
+
     @if (error()) {
       <div class="alert alert-error">{{ error() }}</div>
     }
-    @if (!items().length) {
-      <div class="card empty">Nenhuma notificação por enquanto.</div>
-    }
-    <div class="grid">
-      @for (item of items(); track item.id) {
-        <article class="card notification" [class.unread]="!item.read">
-          <div>
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.message }}</p>
-            <span class="muted">{{
-              item.createdAt | date: "dd/MM/yyyy HH:mm"
-            }}</span>
-          </div>
-          @if (!item.read) {
-            <button
+
+    @if (loading()) {
+      <div class="card empty">Carregando notificações...</div>
+    } @else if (!notifications().length) {
+      <div class="card empty">
+        Nenhuma notificação por enquanto.
+      </div>
+    } @else {
+      <div class="grid">
+        @for (item of notifications(); track item.id) {
+          <article
+            class="card notification"
+            [class.unread]="!item.read"
+          >
+            <div>
+              <h2>{{ item.title }}</h2>
+
+              <p>{{ preview(item.message) }}</p>
+
+              <span class="muted">
+                {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}
+              </span>
+            </div>
+
+            <a
               class="btn btn-secondary"
-              type="button"
-              (click)="markRead(item)"
+              [routerLink]="['/notificacoes', item.id]"
             >
-              Marcar como lida
-            </button>
-          }
-        </article>
-      }
-    </div>
+              Ler mensagem
+            </a>
+          </article>
+        }
+      </div>
+    }
   </div>
 </main>

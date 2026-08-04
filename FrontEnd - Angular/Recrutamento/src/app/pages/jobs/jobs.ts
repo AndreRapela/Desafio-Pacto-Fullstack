@@ -17,8 +17,10 @@ export class JobsComponent implements OnInit {
   readonly jobs = signal<Job[]>([]);
   readonly loading = signal(false);
   readonly applyingId = signal("");
+  readonly appliedJobIds = signal<Set<string>>(new Set());
   readonly error = signal("");
   readonly message = signal("");
+
   term = "";
   status: "" | JobStatus = "OPEN";
 
@@ -26,13 +28,36 @@ export class JobsComponent implements OnInit {
     readonly auth: AuthService,
     private readonly api: ApiService,
   ) {}
+
   ngOnInit(): void {
     this.load();
+
+    if (!this.auth.isAdmin()) {
+      this.loadApplications();
+    }
+  }
+
+  loadApplications(): void {
+    this.api.myApplications().subscribe({
+      next: (applications) => {
+        this.appliedJobIds.set(
+          new Set(
+            applications.map((application) => application.jobId),
+          ),
+        );
+      },
+      error: (error) => this.error.set(errorMessage(error)),
+    });
+  }
+
+  hasApplied(jobId: string): boolean {
+    return this.appliedJobIds().has(jobId);
   }
 
   load(): void {
     this.loading.set(true);
     this.error.set("");
+
     this.api
       .jobs(this.term, this.status || undefined)
       .pipe(finalize(() => this.loading.set(false)))
@@ -46,23 +71,34 @@ export class JobsComponent implements OnInit {
     this.applyingId.set(job.id);
     this.error.set("");
     this.message.set("");
+
     this.api
       .apply(job.id)
       .pipe(finalize(() => this.applyingId.set("")))
       .subscribe({
-        next: () =>
+        next: () => {
+          this.appliedJobIds.update((ids) => {
+            const updated = new Set(ids);
+            updated.add(job.id);
+            return updated;
+          });
+
           this.message.set(
             `Candidatura para “${job.title}” enviada com sucesso.`,
-          ),
+          );
+        },
         error: (error) => this.error.set(errorMessage(error)),
       });
   }
 
   remove(job: Job): void {
     if (!confirm(`Excluir a vaga “${job.title}”?`)) return;
+
     this.api.deleteJob(job.id).subscribe({
       next: () => {
-        this.jobs.update((items) => items.filter((item) => item.id !== job.id));
+        this.jobs.update((items) =>
+          items.filter((item) => item.id !== job.id),
+        );
         this.message.set("Vaga excluída.");
       },
       error: (error) => this.error.set(errorMessage(error)),

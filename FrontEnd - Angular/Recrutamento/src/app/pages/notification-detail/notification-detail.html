@@ -1,0 +1,41 @@
+<main class="page">
+  <div class="container narrow">
+    <div class="page-header">
+      <div>
+        <h1>Notificação</h1>
+        <p>Confira todos os detalhes da mensagem.</p>
+      </div>
+
+      <a
+        class="btn btn-ghost"
+        routerLink="/notificacoes"
+      >
+        Voltar
+      </a>
+    </div>
+
+    @if (error()) {
+      <div class="alert alert-error">
+        {{ error() }}
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="empty">
+        Carregando mensagem...
+      </div>
+    } @else if (notification(); as item) {
+      <article class="card notification-detail">
+        <h2>{{ item.title }}</h2>
+
+        <p class="message">
+          {{ item.message }}
+        </p>
+
+        <small>
+          {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}
+        </small>
+      </article>
+    }
+  </div>
+</main>

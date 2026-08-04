@@ -25,4 +25,9 @@ public class NotificationController {
     public NotificationResponse markRead(@PathVariable Long id, Authentication authentication) {
         return service.markRead(id, authentication);
     }
+
+    @GetMapping("/{id}")
+    public NotificationResponse find( @PathVariable Long id,Authentication authentication) {
+        return service.find(id, authentication);
+    }
 }
