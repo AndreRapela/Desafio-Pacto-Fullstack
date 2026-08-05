@@ -33,9 +33,9 @@ public class DataInitializer {
 
             userRepository.findByEmailIgnoreCase("teste@teste.com")
                     .orElseGet(() -> userRepository.save(createUser(
-                            "teste",
-                            "teste@teste.com",
-                            "teste123",
+                            "candidato",
+                            "candidato@candidato.com",
+                            "candidato123",
                             Role.CANDIDATE,
                             LocalDate.now().minusYears(2),
                             passwordEncoder

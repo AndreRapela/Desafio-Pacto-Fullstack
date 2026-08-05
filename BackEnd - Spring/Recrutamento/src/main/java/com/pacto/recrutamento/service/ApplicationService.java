@@ -80,7 +80,7 @@ public class ApplicationService {
         application.setStatus(request.status());
         application.setFeedback(request.feedback() == null ? null : request.feedback().trim());
 
-        String message = "A candidatura para “" + application.getJob().getTitle() + "” está como " + request.status().name() + ".";
+        String message = "A candidatura para “" + application.getJob().getTitle() + "” está como " + request.status().getDescription() + ".";
         if (application.getFeedback() != null && !application.getFeedback().isBlank()) {
             message += " Feedback: " + application.getFeedback();
         }

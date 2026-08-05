@@ -5,22 +5,89 @@
   align-items: end;
   margin-bottom: 18px;
 }
+
 .space {
   margin-bottom: 16px;
 }
+
+.candidate {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
 .candidate-head {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
 }
-h2 {
+
+.candidate-head h2 {
   margin: 0 0 4px;
+  font-size: 1.3rem;
 }
-textarea {
-  min-height: 76px !important;
+
+.application-date {
+  margin: 0;
+  color: #65738b;
 }
+
+.evaluation-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(320px, 1.4fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.evaluation-grid .field {
+  display: grid;
+  gap: 8px;
+}
+
+.evaluation-grid select,
+.evaluation-grid textarea {
+  width: 100%;
+}
+
+.evaluation-grid select {
+  min-height: 48px;
+}
+
+.evaluation-grid textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.candidate-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid #e4e9f2;
+}
+
+.candidate-actions .btn {
+  min-width: 170px;
+}
+
 @media (max-width: 760px) {
   .filters {
     grid-template-columns: 1fr;
+  }
+
+  .evaluation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .candidate {
+    padding: 18px;
+  }
+
+  .candidate-head {
+    align-items: flex-start;
+  }
+
+  .candidate-actions .btn {
+    width: 100%;
   }
 }

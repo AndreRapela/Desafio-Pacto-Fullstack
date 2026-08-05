@@ -1,25 +1,50 @@
 @if (auth.isAuthenticated()) {
   <header class="topbar">
-    <div class="container topbar-inner">
-      <a routerLink="/vagas" class="brand"><span>P</span> Pacto Carreiras</a>
+    <div class="topbar-inner">
+      <a routerLink="/vagas" class="brand">
+        <span class="brand-icon">P</span>
+        <span class="brand-name">Pacto Carreiras</span>
+      </a>
 
-      <nav aria-label="Navegação principal">
-        <a routerLink="/vagas" routerLinkActive="active">Vagas</a>
+      <nav class="topbar-nav" aria-label="Navegação principal">
+        <a routerLink="/vagas" routerLinkActive="active">
+          Vagas
+        </a>
+
         @if (auth.isAdmin()) {
-          <a routerLink="/admin/candidatos" routerLinkActive="active"
-            >Candidatos</a
+          <a
+            routerLink="/admin/candidatos"
+            routerLinkActive="active"
           >
+            Candidatos
+          </a>
         } @else {
-          <a routerLink="/candidaturas" routerLinkActive="active"
-            >Candidaturas</a
+          <a
+            routerLink="/candidaturas"
+            routerLinkActive="active"
           >
+            Candidaturas
+          </a>
         }
-        <a routerLink="/notificacoes" routerLinkActive="active">Notificações</a>
+
+        <a
+          routerLink="/notificacoes"
+          routerLinkActive="active"
+        >
+          Notificações
+        </a>
       </nav>
 
       <div class="user-area">
-        <span>{{ auth.user()?.name }}</span>
-        <button class="logout" type="button" (click)="auth.logout()">
+        <span class="user-name">
+          {{ auth.user()?.name }}
+        </span>
+
+        <button
+          class="logout"
+          type="button"
+          (click)="auth.logout()"
+        >
           Sair
         </button>
       </div>

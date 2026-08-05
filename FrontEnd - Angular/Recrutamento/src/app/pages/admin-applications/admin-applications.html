@@ -9,20 +9,37 @@
         </p>
       </div>
     </div>
+
     <section class="card filters">
       <div class="field">
-        <label for="job">Vaga</label
-        ><select id="job" [(ngModel)]="selectedJob">
+        <label for="job">Vaga</label>
+
+        <select
+          id="job"
+          [(ngModel)]="selectedJob"
+          (ngModelChange)="loadApplications()"
+        >
           <option value="">Selecione</option>
+
           @for (job of jobs(); track job.id) {
-            <option [value]="job.id">{{ job.title }}</option>
+            <option [value]="job.id">
+              {{ job.title }}
+            </option>
           }
         </select>
       </div>
+
       <div class="field">
-        <label for="months">Tempo mínimo (meses)</label
-        ><input id="months" type="number" min="0" [(ngModel)]="minMonths" />
+        <label for="months">Tempo mínimo (meses)</label>
+
+        <input
+          id="months"
+          type="number"
+          min="0"
+          [(ngModel)]="minMonths"
+        />
       </div>
+
       <button
         class="btn btn-secondary"
         type="button"
@@ -32,48 +49,89 @@
         Buscar
       </button>
     </section>
+
+    @if (message()) {
+      <div class="alert alert-success space">
+        {{ message() }}
+      </div>
+    }
+
     @if (error()) {
-      <div class="alert alert-error space">{{ error() }}</div>
+      <div class="alert alert-error space">
+        {{ error() }}
+      </div>
     }
+
     @if (selectedJob && !items().length) {
-      <div class="card empty">Nenhum candidato encontrado.</div>
+      <div class="card empty">
+        Nenhum candidato encontrado.
+      </div>
     }
+
     <div class="grid">
       @for (item of items(); track item.id) {
-        <article class="card candidate">
-          <div class="candidate-head">
-            <div>
-              <h2>{{ item.candidateName }}</h2>
-              <span class="muted">{{ item.candidateEmail }}</span>
-            </div>
-            <span class="badge">{{ item.monthsAtCompany }} meses</span>
-          </div>
-          <p class="muted">
-            Candidatura enviada em
-            {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}
-          </p>
-          <div class="grid grid-2">
-            <div class="field">
-              <label>Status</label
-              ><select [(ngModel)]="item.status">
-                <option value="SUBMITTED">Enviada</option>
-                <option value="UNDER_REVIEW">Em análise</option>
-                <option value="APPROVED">Aprovada</option>
-                <option value="REJECTED">Reprovada</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Feedback</label
-              ><textarea
-                [(ngModel)]="item.feedback"
-                placeholder="Comentário para o candidato"
-              ></textarea>
-            </div>
-          </div>
-          <button class="btn btn-primary" type="button" (click)="save(item)">
-            Salvar avaliação
-          </button>
-        </article>
+<article class="card candidate">
+  <div class="candidate-head">
+    <div>
+      <h2>{{ item.candidateName }}</h2>
+      <span class="muted">{{ item.candidateEmail }}</span>
+    </div>
+
+    <span class="badge">
+      {{ item.monthsAtCompany }} meses
+    </span>
+  </div>
+
+  <p class="application-date">
+    Candidatura enviada em
+    {{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}
+  </p>
+
+  <div class="evaluation-grid">
+    <div class="field">
+      <label for="status-{{ item.id }}">Status</label>
+
+      <select
+        id="status-{{ item.id }}"
+        [(ngModel)]="item.status"
+        (ngModelChange)="markAsPending(item.id)"
+      >
+        <option value="SUBMITTED">Enviada</option>
+        <option value="UNDER_REVIEW">Em análise</option>
+        <option value="APPROVED">Aprovada</option>
+        <option value="REJECTED">Não aprovada</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="feedback-{{ item.id }}">Feedback</label>
+
+      <textarea
+        id="feedback-{{ item.id }}"
+        [(ngModel)]="item.feedback"
+        (ngModelChange)="markAsPending(item.id)"
+        placeholder="Comentário para o candidato"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="candidate-actions">
+    <button
+      class="btn btn-primary"
+      type="button"
+      [disabled]="savingId() === item.id || isSaved(item.id)"
+      (click)="save(item)"
+    >
+      @if (savingId() === item.id) {
+        Salvando...
+      } @else if (isSaved(item.id)) {
+        Salvo
+      } @else {
+        Salvar avaliação
+      }
+    </button>
+  </div>
+</article>
       }
     </div>
   </div>

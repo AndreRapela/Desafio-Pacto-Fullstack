@@ -1,33 +1,47 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { AuthResponse } from './models';
-import { AuthService } from './auth.service';
+import { provideHttpClient } from "@angular/common/http";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
+import { Router } from "@angular/router";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
+import { AuthService } from "./auth.service";
+import { AuthResponse } from "./models";
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   let service: AuthService;
   let http: HttpTestingController;
-  let router: jasmine.SpyObj<Router>;
+  let navigateByUrl: ReturnType<typeof vi.fn>;
 
   const session: AuthResponse = {
-    token: 'jwt-token',
-    userId: 'user-1',
-    name: 'Aluno 2',
-    email: 'aluno2@pacto.com.br',
-    role: 'CANDIDATE'
+    token: "jwt-token",
+    userId: "user-1",
+    name: "Candidato",
+    email: "candidato@candidato.com",
+    role: "CANDIDATE",
   };
 
   beforeEach(() => {
     localStorage.clear();
-    router = jasmine.createSpyObj<Router>('Router', ['navigateByUrl']);
+    navigateByUrl = vi.fn();
 
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: Router, useValue: router }
-      ]
+        {
+          provide: Router,
+          useValue: { navigateByUrl },
+        },
+      ],
     });
 
     service = TestBed.inject(AuthService);
@@ -39,31 +53,52 @@ describe('AuthService', () => {
     localStorage.clear();
   });
 
-  it('starts unauthenticated without a stored session', () => {
-    expect(service.isAuthenticated()).toBeFalse();
+  it("inicia sem autenticação quando não existe sessão salva", () => {
+    expect(service.isAuthenticated()).toBe(false);
     expect(service.token()).toBeNull();
   });
 
-  it('stores the session after login', () => {
-    service.login({ email: session.email, password: 'Aluno2@123' }).subscribe();
+  it("salva a sessão após o login", () => {
+    service
+      .login({
+        email: session.email,
+        password: "candidato123",
+      })
+      .subscribe();
 
-    const request = http.expectOne('/api/auth/login');
-    expect(request.request.method).toBe('POST');
+    const request = http.expectOne("/api/auth/login");
+
+    expect(request.request.method).toBe("POST");
+
     request.flush(session);
 
-    expect(service.isAuthenticated()).toBeTrue();
-    expect(service.user()?.name).toBe('Aluno 2');
-    expect(JSON.parse(localStorage.getItem('internal-recruitment-auth') ?? '{}')).toEqual(session);
+    expect(service.isAuthenticated()).toBe(true);
+    expect(service.user()?.name).toBe("Candidato");
+
+    expect(
+      JSON.parse(
+        localStorage.getItem("internal-recruitment-auth") ?? "{}",
+      ),
+    ).toEqual(session);
   });
 
-  it('clears the session and redirects on logout', () => {
-    service.login({ email: session.email, password: 'Aluno2@123' }).subscribe();
-    http.expectOne('/api/auth/login').flush(session);
+  it("limpa a sessão e redireciona no logout", () => {
+    service
+      .login({
+        email: session.email,
+        password: "candidato123",
+      })
+      .subscribe();
+
+    http.expectOne("/api/auth/login").flush(session);
 
     service.logout();
 
-    expect(service.isAuthenticated()).toBeFalse();
-    expect(localStorage.getItem('internal-recruitment-auth')).toBeNull();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/login');
+    expect(service.isAuthenticated()).toBe(false);
+    expect(
+      localStorage.getItem("internal-recruitment-auth"),
+    ).toBeNull();
+
+    expect(navigateByUrl).toHaveBeenCalledWith("/login");
   });
 });
