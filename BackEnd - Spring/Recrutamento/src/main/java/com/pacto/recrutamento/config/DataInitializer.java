@@ -31,7 +31,7 @@ public class DataInitializer {
                             passwordEncoder
                     )));
 
-            userRepository.findByEmailIgnoreCase("teste@teste.com")
+            userRepository.findByEmailIgnoreCase("candidato@candidato.com")
                     .orElseGet(() -> userRepository.save(createUser(
                             "candidato",
                             "candidato@candidato.com",
